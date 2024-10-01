@@ -20,7 +20,7 @@ def check_bound(obj_rct:pg.Rect)->tuple[bool,bool]:
     yoko,tate=True,True
     if obj_rct.left<0 or WIDTH<obj_rct.right:
         yoko=False
-    if obj_rct.top<0 or HEIGHT<obj_rct.botton:
+    if obj_rct.top<0 or HEIGHT<obj_rct.bottom:
         tate=False
     return yoko,tate
 
@@ -33,7 +33,7 @@ def main():
     kk_rct = kk_img.get_rect()
     kk_rct.center = 300, 200
     bb_img=pg.Surface((20,20))
-    pg.draw.circle=(bb_img,(255,0,0),(10,10),10)
+    pg.draw.circle(bb_img,(255,0,0),(10,10),10)
     bb_rct=bb_img.get_rect()
     bb_rct.centery=random.randint(0,WIDTH)
     bb_rct.centery=random.randint(0,HEIGHT)
@@ -46,6 +46,10 @@ def main():
             if event.type == pg.QUIT: 
                 return
         screen.blit(bg_img, [0, 0]) 
+        if kk_rct.colliderect(bb_rct):
+            #こうかトンが重なっていたら
+            print("game over")
+            retrun
 
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
